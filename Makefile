@@ -192,8 +192,9 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ \
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
 export KBUILD_BUILDHOST := $(SUBARCH)
-ARCH		?=arm
-CROSS_COMPILE	?=/home/adam0524/HispAsian_BlackOut/Kernel/arm-eabi-4.7/bin/arm-eabi-
+ARCH		?= arm
+CROSS_COMPILE	?= /home/adam0524/HispAsian_BlackOut/Kernel/linaro_toolchains_2014/arm-cortex_a15-linux-gnueabihf-linaro_4.9.2-2014.09/bin/arm-cortex_a15-linux-gnueabihf-
+
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -618,6 +619,9 @@ endif
 # This warning generated too much noise in a regular build.
 # Use make W=1 to enable this warning (see scripts/Makefile.build)
 KBUILD_CFLAGS += $(call cc-disable-warning, unused-but-set-variable)
+
+#Disable aggressive-loop-optimizations due to bogus warnings during compile
+KBUILD_CFLAGS += $(call cc-disable-warning, aggressive-loop-optimizations)
 
 ifdef CONFIG_FRAME_POINTER
 KBUILD_CFLAGS	+= -fno-omit-frame-pointer -fno-optimize-sibling-calls
