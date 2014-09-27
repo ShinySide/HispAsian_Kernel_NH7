@@ -63,6 +63,9 @@ static int xen_register_pirq(u32 gsi, int gsi_override, int triggering,
 	struct physdev_map_pirq map_irq;
 	int shareable = 0;
 	char *name;
+	irq = xen_irq_from_gsi(gsi);
+	if (irq > 0)
+		return irq;
 
 	if (set_pirq)
 		pirq = gsi;
