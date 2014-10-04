@@ -619,6 +619,7 @@ int elv_reinsert_request(struct request_queue *q, struct request *rq)
 
 	return res;
 }
+
 void elv_drain_elevator(struct request_queue *q)
 {
 	static int printed;
@@ -817,7 +818,7 @@ void elv_completed_request(struct request_queue *q, struct request *rq)
 		q->notified_urgent = false;
 		WARN_ON(!q->dispatched_urgent);
 		q->dispatched_urgent = false;
-
+	}
 	/*
 	 * request is released from the driver, io must be done
 	 */

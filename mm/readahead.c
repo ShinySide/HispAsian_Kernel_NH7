@@ -185,6 +185,9 @@ __do_page_cache_readahead(struct address_space *mapping, struct file *filp,
 			break;
 		page->index = page_offset;
 		list_add(&page->lru, &page_pool);
+
+		page->flags |= (1L << PG_readahead);
+
 		if (page_idx == nr_to_read - lookahead_size)
 			SetPageReadahead(page);
 		ret++;
